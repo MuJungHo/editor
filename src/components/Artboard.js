@@ -9,29 +9,15 @@ export default () => {
         }
     }))
     const classes = useStyles()
-    const svg = useRef()
-
-    const getCTM = () => {
-        const ctm = svg.current ? svg.current.getScreenCTM() : {}
-        return {
-            a: ctm.a,
-            b: ctm.b,
-            c: ctm.c,
-            d: ctm.d,
-            e: ctm.e,
-            f: ctm.f
-        }
-    }
-
-    const getArtboard = () => {
-        return svg.current
-    }
+    const board = useRef()
     
     return (
         <svg
-            ref={svg}
+            ref={board}
             xmlns="http://www.w3.org/2000/svg"
             className={classes.artboard}
+            width="800"
+            height="500" 
         >
             <rect
                 x="0"
@@ -40,7 +26,7 @@ export default () => {
                 height="100%" 
                 fill="#fff"
             />
-            <Layer getArtboard={getArtboard} getCTM={getCTM}/>
+            <Layer board={board}/>
         </svg>
     )
 }

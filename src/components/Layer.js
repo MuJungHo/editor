@@ -1,24 +1,26 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import MediaLayer from './MediaLayer'
 
-export default ({ getArtboard, getCTM }) => {
+export default ({ board }) => {
     const [state, setState] = useState({
         isDragging: false,
         x: 10,
         y: 10,
+        height: 100,
+        width: 100,
         dragOffsetX: null,
-        dragOffsetY: null
+        dragOffsetY: null,
     })
 
     const getMousePosition = useCallback(
         event => {
-            const CTM = getCTM()
+            const CTM = board.current.getScreenCTM()
             return {
                 x: (event.clientX - CTM.e) / CTM.a,
                 y: (event.clientY - CTM.f) / CTM.d
             }
         }, 
-        [getCTM]
+        [board]
     )
 
     // mouse move
@@ -60,22 +62,38 @@ export default ({ getArtboard, getCTM }) => {
         [getMousePosition]
     )
 
-    useEffect(() => {
-        getArtboard().addEventListener("mousemove", handleMouseMove)
-        getArtboard().addEventListener("mouseup", handleMouseUp)
+    const resize = useCallback(
+        ({ x, y, width, height }) => {
+            console.log({ x, y, width, height })
+            setState(prevState => ({
+                ...prevState,
+                x: x,
+                y: y,
+                width: width,
+                height: height
+            }))
+    }, [])
 
+    useEffect(() => {
+        var artboard = board.current
+        artboard.addEventListener("mousemove", handleMouseMove)
+        artboard.addEventListener("mouseup", handleMouseUp)
         return () => {
-            getArtboard().removeEventListener("mousemove", handleMouseMove)
-            getArtboard().removeEventListener("mouseup", handleMouseUp)
+            artboard.removeEventListener("mousemove", handleMouseMove)
+            artboard.removeEventListener("mouseup", handleMouseUp)
         }
-    }, [handleMouseMove, handleMouseUp, getArtboard])
-    
+    }, [handleMouseMove, handleMouseUp, board])
+
     return (
         <MediaLayer
             isDragging={state.isDragging}
             onMouseDown={handleMouseDown}
             x={state.x}
             y={state.y}
+            width={state.width}
+            height={state.height}
+            board={board}
+            resize={resize}
         />  
     )
 }
