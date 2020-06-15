@@ -6,8 +6,8 @@ export default (props) => {
         onMouseDown, 
         x, 
         y,
-        width = 125,
-        height = 125,
+        width,
+        height,
         board,
         resize
     } = props
