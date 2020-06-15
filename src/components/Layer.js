@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import MediaLayer from './MediaLayer'
 
-export default ({ board }) => {
+export default ({ board, x, y, width, height }) => {
     const [state, setState] = useState({
+        x: x,
+        y: y,
+        height: width,
+        width: height,
         isDragging: false,
-        x: 10,
-        y: 10,
-        height: 100,
-        width: 100,
         dragOffsetX: null,
         dragOffsetY: null,
     })
