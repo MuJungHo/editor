@@ -17,6 +17,8 @@ export default ({ x, y, width, height, board, resize }) => {
                 const movedHeight = Math.max(my - y, 0)
                 resize({ width: movedWidth, height: movedHeight, x, y })
                 break
+            default:
+                break
         }
     }
 

@@ -33,7 +33,7 @@ export default ({ cx, cy, board, move, point }) => {
                 move({ mx: state.x, my: state.y, point })
             }
         },
-        [state.isDragging, getMousePosition, state.x, state.y]
+        [state.isDragging, getMousePosition, state.x, state.y, move, point]
     )
 
     // mouse left click release

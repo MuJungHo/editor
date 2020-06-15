@@ -62,15 +62,16 @@ export default ({ board }) => {
         [getMousePosition]
     )
 
-    const resize = ({ x, y, width, height }) => {
-        setState(prevState => ({
-            ...prevState,
-            x: x,
-            y: y,
-            width: width,
-            height: height
-        }))
-    }
+    const resize = useCallback(
+        ({ x, y, width, height }) => {
+            setState(prevState => ({
+                ...prevState,
+                x: x,
+                y: y,
+                width: width,
+                height: height
+            }))
+    }, [])
 
     useEffect(() => {
         var artboard = board.current
