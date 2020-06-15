@@ -62,17 +62,15 @@ export default ({ board }) => {
         [getMousePosition]
     )
 
-    const resize = useCallback(
-        ({ x, y, width, height }) => {
-            console.log({ x, y, width, height })
-            setState(prevState => ({
-                ...prevState,
-                x: x,
-                y: y,
-                width: width,
-                height: height
-            }))
-    }, [])
+    const resize = ({ x, y, width, height }) => {
+        setState(prevState => ({
+            ...prevState,
+            x: x,
+            y: y,
+            width: width,
+            height: height
+        }))
+    }
 
     useEffect(() => {
         var artboard = board.current
@@ -82,7 +80,7 @@ export default ({ board }) => {
             artboard.removeEventListener("mousemove", handleMouseMove)
             artboard.removeEventListener("mouseup", handleMouseUp)
         }
-    }, [handleMouseMove, handleMouseUp, board])
+    }, [handleMouseMove, handleMouseUp, board, resize])
 
     return (
         <MediaLayer

@@ -54,8 +54,8 @@ export default ({ cx, cy, board, move, point }) => {
             setState(prevState => ({
                 ...prevState,
                 isDragging: true,
-                dragOffsetX : offset.x - prevState.x,
-                dragOffsetY : offset.y - prevState.y
+                x : offset.x - prevState.x,
+                y : offset.y - prevState.y
             }))
         },
         [getMousePosition]
@@ -65,7 +65,6 @@ export default ({ cx, cy, board, move, point }) => {
         var artboard = board.current
         artboard.addEventListener("mousemove", handleMouseMove)
         artboard.addEventListener("mouseup", handleMouseUp)
-        move({ mx: state.x, my: state.y, point })
         return () => {
             artboard.removeEventListener("mousemove", handleMouseMove)
             artboard.removeEventListener("mouseup", handleMouseUp)
